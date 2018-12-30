@@ -13,7 +13,7 @@ router.get('/api/exercise/users', mainController.getAllUsers);
 
 // Exercise routes
 // Add exercise
-//router.post('/api/exercise/add', mainController.addExercise);
+router.post('/api/exercise/add', mainController.addExercise);
 // Get Full exercise log - Also handle params
 //router.get('/api/exercise/log', mainController.getExerciseLog);
 
