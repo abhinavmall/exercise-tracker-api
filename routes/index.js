@@ -9,12 +9,12 @@ router.get('/', mainController.mainPage);
 // Add user
 router.post('/api/exercise/new-user', mainController.addUser);
 // Get all users
-//router.get('/api/exercise/users', mainController.getAllUsers);
+router.get('/api/exercise/users', mainController.getAllUsers);
 
 // Exercise routes
 // Add exercise
-//router.post('/api/exercise/add', mainController.addExercise);
+router.post('/api/exercise/add', mainController.addExercise);
 // Get Full exercise log - Also handle params
-//router.get('/api/exercise/log', mainController.getExerciseLog);
+router.get('/api/exercise/log', mainController.getExerciseLog);
 
 module.exports = router;
