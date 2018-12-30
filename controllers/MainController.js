@@ -38,10 +38,21 @@ exports.addUser = (req, res) => {
     });
 
 }
-/*
-exports.getAllUsers = async(req, res) => {
+
+exports.getAllUsers = (req, res) => {
+  console.log('Get all users');
+  
+  User.find({}, function(err, users){
+    if(err) {
+      res.json({'error': err});
+    }
+    else {
+      res.json(users);
+    }
+  });
 }
 
+/*
 exports.addExercise = async(req, res) => {
 }
 

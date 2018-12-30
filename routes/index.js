@@ -9,7 +9,7 @@ router.get('/', mainController.mainPage);
 // Add user
 router.post('/api/exercise/new-user', mainController.addUser);
 // Get all users
-//router.get('/api/exercise/users', mainController.getAllUsers);
+router.get('/api/exercise/users', mainController.getAllUsers);
 
 // Exercise routes
 // Add exercise
