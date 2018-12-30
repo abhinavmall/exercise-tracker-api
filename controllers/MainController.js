@@ -100,8 +100,59 @@ exports.addExercise = (req, res) => {
     });
 }
 
-/*
-exports.getExerciseLog = async(req, res) => {
-}
+exports.getExerciseLog = (req, res) => {
+  var userId = req.query.userId;
+  var fromDate = req.query.from;
+  var toDate = req.query.to;
+  var limit = req.query.limit;
+  
+  console.log('User id = ' + userId
+             + ' from date = ' + fromDate
+             + ' to date = ' + toDate
+             + ' limit = ' + limit);
 
-*/
+  // Query User
+  User.findOne(
+    {username: userId}, 
+    function(err, user){
+      if(err || user === null){
+        res.json({'error': 'User not found'});
+      }
+      else {
+        // Aggregate on the basis of query params
+        var query = {};
+        query.userId = user._id;
+        
+        if(fromDate || toDate) {
+          query.date = {};
+        if(fromDate)
+          query.date.$gte = moment(fromDate).format('YYYY-MM-DD');
+        if(toDate)
+          query.date.$lte = moment(toDate).format('YYYY-MM-DD');
+        }
+        
+        var exercises = Exercise.find(query)
+          .sort({ 'date': -1 })
+          
+        if(null != limit && '' != limit) {
+          exercises.limit(parseInt(limit))
+        }
+        
+        exercises
+          .exec(function(err,data){
+          if(err){
+            console.log(err);
+            res.json({'error':'Error occurred'});
+          }
+          else{
+            var userObj = {};
+            userObj._id = user._id;
+            userObj.username = user.username;
+            userObj.exercises = data;
+            userObj.count = data.length;
+            res.json(userObj);
+          }
+        });
+      }
+    });
+}
